@@ -3,8 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://sameer-ansari-dev.github.io/Wedding-card",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
