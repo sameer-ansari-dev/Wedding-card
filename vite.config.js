@@ -4,10 +4,10 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // Relative base path for GitHub Pages deployment
-  base: './',
+  // GitHub Pages base URL for repository sameer-ansari-dev/Wedding-card
+  base: '/Wedding-card/',
   server: {
-    host: true, // Exposes the server to local network (0.0.0.0) for mobile testing
+    host: true, // Exposes server to local network for mobile testing
     port: 5173,
   },
   build: {
