@@ -3,38 +3,44 @@ import { motion } from 'framer-motion';
 import { WEDDING_DATA } from '../../config/weddingData';
 import { LanternSVG } from '../common/LanternSVG';
 import { MandalaOrnament } from '../common/MandalaOrnament';
+import { GoldenRaysParticles } from '../common/GoldenRaysParticles';
 import { Heart, Calendar, MapPin } from 'lucide-react';
 
 export const HeroSection = () => {
+  const groomFirstName = WEDDING_DATA.groom.name.split(" ")[0].toUpperCase();
+  const brideFirstName = WEDDING_DATA.bride.name.split(" ")[0].toUpperCase();
+
+  // Custom cubic-bezier easing for cinematic smooth blur-to-sharp reveals
+  const customEase = [0.22, 1, 0.36, 1];
+
   return (
     <section className="relative min-h-screen w-full flex flex-col items-center justify-between py-12 px-4 overflow-hidden bg-radial-night gpu-layer">
       {/* Background Geometric Grid Pattern */}
-      <div className="absolute inset-0 bg-islamic-pattern opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-islamic-pattern opacity-25 pointer-events-none" />
+
+      {/* Floating Ambient Light Rays & Particles */}
+      <GoldenRaysParticles active={true} />
 
       {/* Floating Side Lanterns */}
-      <div className="absolute top-4 left-4 sm:left-12 z-10">
+      <div className="absolute top-4 left-4 sm:left-12 z-10 pointer-events-none">
         <LanternSVG className="w-12 h-24 sm:w-16 sm:h-32" delay={0.2} />
       </div>
-      <div className="absolute top-4 right-4 sm:right-12 z-10">
+      <div className="absolute top-4 right-4 sm:right-12 z-10 pointer-events-none">
         <LanternSVG className="w-12 h-24 sm:w-16 sm:h-32" delay={1.2} />
       </div>
 
-      {/* Background Radial Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-
-      {/* 1. BISMILLAH SECTION */}
+      {/* 1. BISMILLAH SECTION (FADE-UP) */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: 'easeOut' }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: customEase }}
         className="flex flex-col items-center text-center z-10 max-w-xl w-full mt-4"
       >
-        <MandalaOrnament className="w-20 h-20 sm:w-28 sm:h-28 mb-3" color="#D4AF37" />
+        <MandalaOrnament className="w-20 h-20 sm:w-24 sm:h-24 mb-3" color="#D4AF37" />
         
         <span
           className="font-cinzel tracking-[0.35em] text-gold uppercase mb-3 font-semibold"
-          style={{ fontSize: 'clamp(0.7rem, 2vw, 0.95rem)' }}
+          style={{ fontSize: 'clamp(0.75rem, 2vw, 0.95rem)' }}
         >
           The Royal Wedding Celebration Of
         </span>
@@ -59,56 +65,67 @@ export const HeroSection = () => {
         </div>
       </motion.div>
 
-      {/* 2. COUPLE NAMES SECTION */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, delay: 0.2 }}
-        className="flex flex-col items-center text-center my-8 z-10 w-full max-w-3xl px-2"
-      >
-        {/* Groom */}
-        <div className="relative group">
+      {/* 2. CINEMATIC NAME REVEAL SEQUENCE (ZAID -> & -> ZAINAB WITH BLUR-TO-SHARP & SCALE) */}
+      <div className="flex flex-col items-center text-center my-8 z-10 w-full max-w-4xl px-2">
+        {/* ZAID (GROOM NAME) REVEAL FIRST */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1.0, delay: 0.4, ease: customEase }}
+          className="relative"
+        >
           <h1
-            className="font-serif font-bold tracking-tight gold-text-gradient drop-shadow-xl leading-tight"
-            style={{ fontSize: 'clamp(2.5rem, 8vw, 5.5rem)' }}
+            className="font-serif font-bold text-gold-gradient tracking-wide uppercase leading-none drop-shadow-2xl"
+            style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)' }}
           >
-            {WEDDING_DATA.groom.name}
+            {groomFirstName}
           </h1>
-          <p className="text-xs sm:text-sm text-cream/70 font-sans tracking-wider mt-1">
+          <p className="text-xs sm:text-sm text-cream/70 font-sans tracking-wider mt-2">
             {WEDDING_DATA.groom.parents}
           </p>
-        </div>
+        </motion.div>
 
-        {/* Ampersand Heart Divider */}
-        <div className="my-4 flex items-center gap-4 w-full justify-center">
+        {/* GOLDEN "&" REVEAL SECOND */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 1.1, ease: customEase }}
+          className="my-3 flex items-center justify-center gap-4 w-full"
+        >
           <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent" />
-          <div className="w-10 h-10 rounded-full border border-gold/40 flex items-center justify-center bg-maroon-900/80 shadow-inner">
-            <Heart className="w-5 h-5 text-gold animate-pulse fill-gold/20" />
-          </div>
-          <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent" />
-        </div>
-
-        {/* Bride */}
-        <div className="relative group">
-          <h1
-            className="font-serif font-bold tracking-tight gold-text-gradient drop-shadow-xl leading-tight"
-            style={{ fontSize: 'clamp(2.5rem, 8vw, 5.5rem)' }}
+          <span
+            className="font-serif italic text-gold-light font-normal drop-shadow-lg"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 3.5rem)' }}
           >
-            {WEDDING_DATA.bride.name}
+            &amp;
+          </span>
+          <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent" />
+        </motion.div>
+
+        {/* ZAINAB (BRIDE NAME) REVEAL THIRD */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1.0, delay: 1.6, ease: customEase }}
+          className="relative"
+        >
+          <h1
+            className="font-serif font-bold text-gold-gradient tracking-wide uppercase leading-none drop-shadow-2xl"
+            style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)' }}
+          >
+            {brideFirstName}
           </h1>
-          <p className="text-xs sm:text-sm text-cream/70 font-sans tracking-wider mt-1">
+          <p className="text-xs sm:text-sm text-cream/70 font-sans tracking-wider mt-2">
             {WEDDING_DATA.bride.parents}
           </p>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
-      {/* Save The Date Pill */}
+      {/* 3. SAVE THE DATE PILL */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 2.2, ease: customEase }}
         className="z-10 flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md px-4 mb-4"
       >
         <div className="w-full sm:w-auto px-6 py-3 rounded-full royal-glass flex items-center justify-center gap-3 border border-gold/40 text-cream shadow-xl">
