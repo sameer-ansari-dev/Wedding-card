@@ -5,6 +5,11 @@ import { MandalaOrnament } from '../common/MandalaOrnament';
 import { Heart, Sparkles } from 'lucide-react';
 
 export const FooterSection = () => {
+  const buildTimestamp = new Date(import.meta.env.VITE_BUILD_TIMESTAMP)
+    .toISOString()
+    .replace('T', ' ')
+    .replace(/\.\d{3}Z$/, ' UTC');
+
   return (
     <footer className="relative py-16 px-4 w-full bg-maroon-950 text-cream border-t border-gold/40 overflow-hidden gpu-layer">
       {/* Background Star grid */}
@@ -38,6 +43,9 @@ export const FooterSection = () => {
 
         <p className="text-xs font-sans text-cream/50 mt-6 tracking-widest uppercase">
           Crafted with love • Blessed Union 2026
+        </p>
+        <p className="text-[10px] font-sans text-cream/40 mt-2">
+          Build Version: {buildTimestamp}
         </p>
       </div>
     </footer>
