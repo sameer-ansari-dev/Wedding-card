@@ -5,8 +5,7 @@ import { CountdownSection } from './components/Countdown/CountdownSection';
 import { EventTimelineSection } from './components/Events/EventTimelineSection';
 import { FamilyDetailsSection } from './components/Family/FamilyDetailsSection';
 import { VenueSection } from './components/Venue/VenueSection';
-import { GallerySection } from './components/Gallery/GallerySection';
-import { GuestWishesSection } from './components/Wishes/GuestWishesSection';
+import { ContactSection } from './components/Contact/ContactSection';
 import { MusicControl } from './components/Audio/MusicControl';
 import { FooterSection } from './components/Footer/FooterSection';
 
@@ -39,11 +38,8 @@ export default function App() {
         {/* 7. Venue Section & 8. Google Maps */}
         <VenueSection />
         
-        {/* 9. Swiper Royal Gallery */}
-        <GallerySection />
-        
-        {/* 10. Guest Wishes & RSVP */}
-        <GuestWishesSection />
+        {/* Contact details */}
+        <ContactSection />
         
         {/* 11. Footer */}
         <FooterSection />

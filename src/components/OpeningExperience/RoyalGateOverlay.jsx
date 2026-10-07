@@ -49,6 +49,12 @@ export const RoyalGateOverlay = ({ onOpen }) => {
             style={{ transformOrigin: 'left center', transformStyle: 'preserve-3d' }}
             className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-[#1F0710] via-[#350F1B] to-[#210711] border-r-2 border-gold/40 z-10 shadow-[0_0_50px_rgba(0,0,0,0.8)] flex items-center justify-end pointer-events-none"
           >
+            <motion.div
+              aria-hidden="true"
+              animate={isAnimating ? { opacity: [0, 0.55, 0], x: [18, -8, -28] } : { opacity: 0, x: 18 }}
+              transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1], times: [0, 0.45, 1] }}
+              className="absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-r from-transparent via-gold/25 to-transparent"
+            />
             {/* Massive Engraved Gold Islamic Arch & Carvings */}
             <div className="absolute inset-4 sm:inset-8 rounded-r-[10rem] border-2 border-gold/30 border-l-0 p-6 pointer-events-none bg-maroon-900/20 flex flex-col justify-between items-end">
               <div className="w-16 h-16 border-t-2 border-r-2 border-gold/60 rounded-tr-xl" />
@@ -67,6 +73,12 @@ export const RoyalGateOverlay = ({ onOpen }) => {
             style={{ transformOrigin: 'right center', transformStyle: 'preserve-3d' }}
             className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#1F0710] via-[#350F1B] to-[#210711] border-l-2 border-gold/40 z-10 shadow-[0_0_50px_rgba(0,0,0,0.8)] flex items-center justify-start pointer-events-none"
           >
+            <motion.div
+              aria-hidden="true"
+              animate={isAnimating ? { opacity: [0, 0.55, 0], x: [-18, 8, 28] } : { opacity: 0, x: -18 }}
+              transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1], times: [0, 0.45, 1] }}
+              className="absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-l from-transparent via-gold/25 to-transparent"
+            />
             {/* Massive Engraved Gold Islamic Arch & Carvings */}
             <div className="absolute inset-4 sm:inset-8 rounded-l-[10rem] border-2 border-gold/30 border-r-0 p-6 pointer-events-none bg-maroon-900/20 flex flex-col justify-between items-start">
               <div className="w-16 h-16 border-t-2 border-l-2 border-gold/60 rounded-tl-xl" />
@@ -87,10 +99,7 @@ export const RoyalGateOverlay = ({ onOpen }) => {
             {/* TOP AREA: LUXURY ISLAMIC SEAL (SLOW MATERIALIZE & CONTINUOUS ROTATION) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={isAnimating 
-                ? { opacity: 1, scale: 1.3, filter: 'brightness(2.2)' } 
-                : { opacity: 1, scale: 1 }
-              }
+              animate={isAnimating ? { opacity: 1, scale: 1.3 } : { opacity: 1, scale: 1 }}
               transition={{ duration: 1.0 }}
               className="mt-auto mb-[50px] flex flex-col items-center"
             >

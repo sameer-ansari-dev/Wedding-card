@@ -66,10 +66,10 @@ export const VenueSection = () => {
               <span className="text-[11px] font-cinzel tracking-widest text-gold uppercase">
                 {currentEvent.date}
               </span>
-              <h3 className="font-serif text-2xl font-bold text-gold-light">
+              <h3 className="font-serif text-2xl font-bold text-gold-light break-words">
                 {currentEvent.venueName}
               </h3>
-              <p className="text-xs sm:text-sm text-cream/80 font-sans mt-0.5">
+              <p className="text-xs sm:text-sm text-cream/80 font-sans mt-0.5 leading-relaxed break-words">
                 {currentEvent.address}
               </p>
             </div>
@@ -79,7 +79,7 @@ export const VenueSection = () => {
               href={currentEvent.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gold hover:bg-gold-amber text-maroon-950 font-semibold text-xs sm:text-sm tracking-wide shadow-lg transition-all duration-300 shrink-0"
+              className="inline-flex min-h-11 items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-gold hover:bg-gold-amber text-maroon-950 font-semibold text-xs sm:text-sm tracking-wide shadow-lg transition-colors duration-300 shrink-0 max-w-full"
             >
               <Navigation className="w-4 h-4 fill-maroon-950" />
               <span>Open Google Maps</span>

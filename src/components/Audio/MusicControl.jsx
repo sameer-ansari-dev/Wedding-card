@@ -1,41 +1,50 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { WEDDING_DATA } from '../../config/weddingData';
-import { synthAudio } from '../../utils/audioSynth';
-import { Music, Volume2, VolumeX, Disc } from 'lucide-react';
+import { Pause, Play, Volume2, VolumeX } from 'lucide-react';
 
 export const MusicControl = ({ autoPlayTriggered = false }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const hasAutoStarted = useRef(false);
+  const shouldPlay = useRef(false);
+  const muted = useRef(false);
+  const synth = useRef(null);
+  const synthPromise = useRef(null);
+
+  const loadSynth = () => {
+    if (synth.current) return Promise.resolve(synth.current);
+    if (!synthPromise.current) {
+      synthPromise.current = import('../../utils/audioSynth').then(({ synthAudio }) => {
+        synth.current = synthAudio;
+        return synthAudio;
+      });
+    }
+    return synthPromise.current;
+  };
+
+  const playAudio = async () => {
+    shouldPlay.current = true;
+    const audio = await loadSynth();
+    if (!shouldPlay.current) return;
+    const started = await audio.start(muted.current ? 0 : 0.15, 2);
+    if (!shouldPlay.current) {
+      audio.stop(1);
+      setIsPlaying(false);
+      return;
+    }
+    setIsPlaying(started);
+  };
 
   useEffect(() => {
-    if (autoPlayTriggered) {
+    if (autoPlayTriggered && !hasAutoStarted.current) {
+      hasAutoStarted.current = true;
       playAudio();
     }
   }, [autoPlayTriggered]);
 
-  const playAudio = () => {
-    if (audioRef.current) {
-      audioRef.current.play()
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch((err) => {
-          console.warn("HTML Audio autoplay blocked or failed, activating Web Audio Synth fallback:", err);
-          synthAudio.start();
-          setIsPlaying(true);
-        });
-    } else {
-      synthAudio.start();
-      setIsPlaying(true);
-    }
-  };
-
   const pauseAudio = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-    }
-    synthAudio.stop();
+    shouldPlay.current = false;
+    synth.current?.stop(1);
     setIsPlaying(false);
   };
 
@@ -47,55 +56,38 @@ export const MusicControl = ({ autoPlayTriggered = false }) => {
     }
   };
 
+  const toggleMute = () => {
+    const nextMuted = !isMuted;
+    muted.current = nextMuted;
+    setIsMuted(nextMuted);
+    synth.current?.setVolume(nextMuted ? 0 : 0.15, 0.2);
+  };
+
+  if (!autoPlayTriggered) return null;
+
   return (
-    <>
-      {/* Hidden Audio Tag */}
-      <audio
-        ref={audioRef}
-        src={WEDDING_DATA.audio.src}
-        loop
-        preload="auto"
-      />
-
-      {/* Floating Gold Music Control Button */}
-      <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2">
-        {/* Playing Soundwave Bar Visualizer pill */}
-        {isPlaying && (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full bg-maroon-900/90 border border-gold/40 text-gold text-xs font-sans backdrop-blur-md shadow-lg"
-          >
-            <div className="flex items-end gap-0.5 h-3">
-              <span className="w-1 bg-gold rounded-full animate-[bounce_1s_infinite_100ms] h-full" />
-              <span className="w-1 bg-gold-light rounded-full animate-[bounce_1s_infinite_300ms] h-2/3" />
-              <span className="w-1 bg-gold rounded-full animate-[bounce_1s_infinite_200ms] h-4/5" />
-            </div>
-            <span className="text-[11px] font-semibold text-gold-light tracking-wide ml-1">
-              Ambient Melody
-            </span>
-          </motion.div>
-        )}
-
-        {/* Circular Music Button */}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={toggleAudio}
-          className="relative w-12 h-12 rounded-full bg-gradient-to-tr from-gold-dark via-gold to-gold-light p-0.5 shadow-[0_0_20px_rgba(212,175,55,0.5)] border border-gold-light cursor-pointer group flex items-center justify-center"
-          aria-label={isPlaying ? 'Pause Music' : 'Play Music'}
-        >
-          <div className="w-full h-full rounded-full bg-maroon-950 flex items-center justify-center relative overflow-hidden">
-            {/* Spinning Disc Effect when playing */}
-            {isPlaying ? (
-              <Disc className="w-6 h-6 text-gold animate-[spin_4s_linear_infinite]" />
-            ) : (
-              <VolumeX className="w-5 h-5 text-cream/60 group-hover:text-gold" />
-            )}
-          </div>
-        </motion.button>
-      </div>
-    </>
+    <div className="fixed bottom-4 right-4 z-40 flex items-center gap-2 rounded-full border border-gold/40 bg-maroon-950/70 p-1.5 shadow-[0_0_22px_rgba(212,175,55,0.22)] backdrop-blur-sm">
+      <motion.button
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
+        onClick={toggleAudio}
+        className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-gold text-maroon-950 transition-colors hover:bg-gold-light"
+        aria-label={isPlaying ? 'Pause music' : 'Play music'}
+        title={isPlaying ? 'Pause music' : 'Play music'}
+      >
+        {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
+        onClick={toggleMute}
+        className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full text-gold transition-colors hover:bg-gold/10"
+        aria-label={isMuted ? 'Unmute music' : 'Mute music'}
+        title={isMuted ? 'Unmute music' : 'Mute music'}
+        aria-pressed={isMuted}
+      >
+        {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+      </motion.button>
+    </div>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { WEDDING_DATA } from '../../config/weddingData';
 import { IslamicArchBorder } from '../common/IslamicArch';
-import { Sparkles, Users, Heart, Award } from 'lucide-react';
+import { Sparkles, Heart, Award } from 'lucide-react';
 
 export const FamilyDetailsSection = () => {
   return (
@@ -36,8 +36,8 @@ export const FamilyDetailsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
           {/* Groom's Family Card */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
@@ -66,8 +66,8 @@ export const FamilyDetailsSection = () => {
 
           {/* Bride's Family Card */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >

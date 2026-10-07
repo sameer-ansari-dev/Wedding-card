@@ -66,7 +66,7 @@ export const CountdownSection = () => {
             The Blessed Countdown
           </h2>
           <p className="text-xs sm:text-sm text-cream/70 mt-2 font-sans max-w-md">
-            Counting every second until Zaid & Zainab unite in Nikah inshaAllah.
+            Counting every second until Zaid Ansari & Zainab Ansari unite in Nikah inshaAllah.
           </p>
         </motion.div>
 
@@ -120,7 +120,7 @@ export const CountdownSection = () => {
           className="mt-8 inline-flex items-center gap-2 text-xs text-gold/80 font-sans tracking-wide"
         >
           <Clock className="w-4 h-4 text-gold" />
-          <span>Nikah Solmenization • {WEDDING_DATA.displayDates.nikah}</span>
+          <span>Nikah Solemnization • {WEDDING_DATA.displayDates.nikah}</span>
         </motion.div>
       </div>
     </section>

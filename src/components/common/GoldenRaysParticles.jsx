@@ -21,7 +21,7 @@ export const GoldenRaysParticles = ({ active = false }) => {
         transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
         className="absolute inset-0 flex items-center justify-center"
       >
-        <div className="w-[100vw] h-[100vw] max-w-[1000px] max-h-[1000px] rounded-full bg-[radial-gradient(circle,_rgba(255,223,128,0.55)_0%,_rgba(212,175,55,0.25)_35%,_rgba(91,32,51,0.1)_65%,_transparent_80%)] filter blur-3xl" />
+        <div className="w-[100vw] h-[100vw] max-w-[1000px] max-h-[1000px] rounded-full bg-[radial-gradient(circle,_rgba(255,223,128,0.3)_0%,_rgba(212,175,55,0.2)_35%,_rgba(91,32,51,0.1)_65%,_transparent_80%)]" />
       </motion.div>
 
       {/* Floating Gold Dust Particles */}

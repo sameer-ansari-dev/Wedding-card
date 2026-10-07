@@ -2,7 +2,7 @@ import React from 'react';
 
 export const IslamicArchBorder = ({ children, className = "" }) => {
   return (
-    <div className={`relative p-6 sm:p-8 rounded-t-[4rem] sm:rounded-t-[6rem] rounded-b-2xl border border-gold/30 bg-maroon-800/80 backdrop-blur-md shadow-2xl ${className}`}>
+    <div className={`relative p-6 sm:p-8 rounded-t-[4rem] sm:rounded-t-[6rem] rounded-b-2xl border border-gold/30 bg-maroon-800/80 backdrop-blur-sm shadow-2xl ${className}`}>
       {/* Top Gold Dome Arch Trim */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center space-x-2">
         <div className="w-12 sm:w-20 h-[1px] bg-gradient-to-r from-transparent to-gold" />
