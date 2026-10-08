@@ -200,6 +200,7 @@ export const ContactSection = () => {
                 const isActive = slot === activeSlot;
                 const isClone = slot === 0 || slot === slots.length - 1;
                 const phoneDigits = contact.phone.replace(/\D/g, '');
+                const callPhoneDigits = phoneDigits.slice(-10);
                 return (
                   <motion.article
                     key={`${contact.phone}-${slot}`}
@@ -228,7 +229,7 @@ export const ContactSection = () => {
                       <p className="mt-0.5 text-base font-medium tracking-wide text-cream sm:text-lg">{contact.phone}</p>
                     </div>
                     <div className="relative z-10 mt-4 grid grid-cols-3 gap-1.5 sm:gap-2">
-                      <a href={`tel:${phoneDigits}`} aria-label={`Call ${contact.name}`} className="flex min-h-11 items-center justify-center gap-1 rounded-xl border border-gold/40 bg-gold/10 text-[10px] font-semibold text-gold transition-colors hover:bg-gold/20 sm:gap-1.5 sm:text-xs">
+                      <a href={`tel:${callPhoneDigits}`} aria-label={`Call ${contact.name}`} className="flex min-h-11 items-center justify-center gap-1 rounded-xl border border-gold/40 bg-gold/10 text-[10px] font-semibold text-gold transition-colors hover:bg-gold/20 sm:gap-1.5 sm:text-xs">
                         <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" /><span>Call</span>
                       </a>
                       <a href={`https://wa.me/${phoneDigits}`} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${contact.name}`} className="flex min-h-11 items-center justify-center gap-1 rounded-xl border border-gold/40 bg-gold/10 text-[10px] font-semibold text-gold transition-colors hover:bg-gold/20 sm:gap-1.5 sm:text-xs">

@@ -6,7 +6,7 @@ const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/sameer-ansari-dev', Icon: Code2 },
   { label: 'Portfolio', href: 'https://sameer-ansari-dev.github.io/The-Ansari-Portfolio/', Icon: Globe2 },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ansari-mohammed-sameer-naseem', Icon: BriefcaseBusiness },
-  { label: 'WhatsApp', href: 'https://wa.me/9199300013955', Icon: MessageCircle }
+  { label: 'WhatsApp', href: 'https://wa.me/919930013955', Icon: MessageCircle }
 ];
 
 const socialVariants = {
